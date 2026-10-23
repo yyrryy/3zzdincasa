@@ -1,0 +1,7 @@
+__pycache__/
+migrations/
+media_root/
+db.sqlite3
+*.xlsx
+*.txt
+venv
