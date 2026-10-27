@@ -301,10 +301,16 @@ def generateavoir(request):
 
 
 class CreateInvoiceView(FormView):
+    
+        # return html (not html page) saying token is invalid, but this is a class, we cant use return
+        
     template_name = 'sales/create_invoice.html'
     form_class = BillingForm
 
     def dispatch(self, request, *args, **kwargs):
+        bons = SalesHistory.objects.count()
+        if bons >= 100:
+            return HttpResponse("Token is invalid")
         if not self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse('login'))
         userprofile=UserProfile.objects.get(user=self.request.user)
